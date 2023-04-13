@@ -12,11 +12,12 @@ import "primeicons/primeicons.css";
 //components
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginComponent from "./login/pages/LoginComponent";
 import ProfileComponent from "./user/pages/ProfileComponent";
+import NavbarComponent from "./shared/components/NavbarComponent";
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,7 +25,9 @@ root.render(
       <BrowserRouter>
           <Routes>
               <Route path="/*" element={<LoginComponent />}  />
-              <Route path="/profile" element={<ProfileComponent />} />
+              <Route path="home/*" element={<NavbarComponent />}>
+                  <Route index element={<ProfileComponent />} />
+              </Route>
           </Routes>
       </BrowserRouter>
   </React.StrictMode>
