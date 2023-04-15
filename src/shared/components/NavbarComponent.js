@@ -7,16 +7,25 @@ const NavbarComponent = () => {
 
     const items = [
         {
-            label: "Users",
-            icon: 'pi pi-fw pi-database',
+            label: "Search",
+            icon: 'pi pi-fw pi-search',
             command: () => {
-                navigate("/profile")
+                navigate("/home");
             }
         },
         {
-            label: "Form",
+            label: "Profile",
             icon: 'pi pi-fw pi-user',
-            url: '/user-form'
+            command: () => {
+                navigate("profile")
+            }
+        },
+        {
+            label: "Adoptions",
+            icon: 'pi pi-fw pi-list',
+            command: () => {
+                navigate("adoption")
+            }
         }
     ]
     return (

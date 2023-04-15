@@ -6,8 +6,10 @@ import {Image} from "primereact/image";
 import megapet from "../../shared/img/megapet.png";
 import {Button} from "primereact/button";
 import { Toast } from 'primereact/toast';
+import * as Yup from 'yup';
 import {useNavigate} from "react-router-dom";
 import RegisterComponent from "../../shared/components/RegisterComponent";
+import {classNames} from "primereact/utils";
 const LoginComponent = () => {
     const toast = useRef(null);
     const navigate = useNavigate();
@@ -34,8 +36,23 @@ const LoginComponent = () => {
                 toast.current.show({severity:'error', summary: 'Success', detail:'Message Content', life: 3000});
 
             }
-        }
+        },
+        validationSchema: Yup.object({
+            email: Yup.string()
+                .required("Email is required"),
+            password: Yup.string()
+                .required("Password is required"),
         })
+        })
+
+    const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
+
+    const getFormErrorMessage = (name) => {
+        return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>
+    }
+
+
+
     return(
         <>
             {
@@ -48,7 +65,7 @@ const LoginComponent = () => {
                                     <div className="flex flex-column text-center mb-3 mt-4">
                                         <Image src={megapet} width={250} />
                                         <span className="text-600 font-medium line-height-3">Don't have an account?</span>
-                                        <a className="font-medium no-underline ml-2 text-blue-500 cursor-pointer" onClick={() => setVisible(false)}>Create now!</a>
+                                        <a className="font-medium no-underline ml-2 text-blue-500 cursor-pointer hover:text-bluegray-500" onClick={() => setVisible(false)}>Create now!</a>
                                     </div>
                                     <div className="">
                                         <form onSubmit={formik.handleSubmit}>
@@ -62,9 +79,11 @@ const LoginComponent = () => {
                                                         name="email"
                                                         type="text"
                                                         placeholder="Username"
+                                                        className={classNames(({'p-invalid':isFormFieldInvalid('email')}))}
                                                         {...formik.getFieldProps("email")}
                                                     />
                                                 </div>
+                                                { getFormErrorMessage('email') }
                                                 <div className="p-inputgroup flex-1 mt-2 ">
                                                     <span className="p-inputgroup-addon">
                                                         <i className="pi pi-key"></i>
@@ -74,9 +93,11 @@ const LoginComponent = () => {
                                                         name="password"
                                                         type="password"
                                                         placeholder="Password"
+                                                        className={classNames(({'p-invalid':isFormFieldInvalid('password')}))}
                                                         {...formik.getFieldProps("password")}
                                                     />
                                                 </div>
+                                                { getFormErrorMessage('password') }
                                                 <Button type="submit" label="Submit" className=" mt-3"/>
                                             </div>
                                         </form>

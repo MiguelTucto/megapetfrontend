@@ -6,7 +6,10 @@ const ProfileComponent = () => {
 
     return (
         <>
-            {user.phone}
+            <div>
+                <h1>it works</h1>
+                <h2>{user.name}</h2>
+            </div>
         </>
     );
 }

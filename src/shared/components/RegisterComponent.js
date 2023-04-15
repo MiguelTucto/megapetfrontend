@@ -1,4 +1,5 @@
 import React, {useRef} from "react";
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import {useNavigate} from "react-router-dom";
 import {classNames} from "primereact/utils";
 import UsersApiService from "../../user/services/users-api.service";
@@ -9,6 +10,7 @@ import {Button} from "primereact/button";
 import {Image} from "primereact/image";
 import megapet from "../img/megapet.png";
 import {Toast} from "primereact/toast";
+import {Divider} from "primereact/divider";
 
 const RegisterComponent = ({setVisible}) => {
     const toast = useRef(null);
@@ -49,93 +51,100 @@ const RegisterComponent = ({setVisible}) => {
                 .catch(e => console.log(e));
         }
     })
-
-    const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
-
-    const getFormErrorMessage = (name) => {
-        return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>
-    }
-
     return (
       <>
           <div className="card">
-              <Toast ref={toast} position="center" />
-              <div className="flex align-content-center justify-content-center mt-8">
-                  <div className="surface-card  shadow-2 mt-8 p-3 border-round w-10 sm:w-2">
-                      <div className="flex flex-column text-center justify-content-center align-content-center mb-3 mt-4">
+              <Toast ref={toast} />
+              <div className="flex align-content-center justify-content-center mt-8 ">
+                  <div className="surface-card  shadow-2  p-3 border-round w-10 sm:w-2">
+                      <div className=" flex-column text-center  mb-3 mt-4">
                           <Image src={megapet} width={250} />
-                          <h4>Complete with your personal information to enjoy MegaPet</h4>
+                          <h4>You may complete the fields with your personal information</h4>
                       </div>
                       <div className="">
                           <form onSubmit={formik.handleSubmit}>
-                              <div className="flex flex-column align-items-center justify-content-center">
-                                  <span className="p-float-label ">
-                                    <InputText
-                                        id="name"
-                                        name="name"
-                                        type="text"
-                                        className={classNames({ 'p-invalid': isFormFieldInvalid("name")})}
-                                        {...formik.getFieldProps("name")}
-                                    />
-                                    <label htmlFor="name">Name</label>
-                                    </ span>
-                                    { getFormErrorMessage('name') }
-                                  <span className="p-float-label ">
-                                    <InputText
-                                        id="lastName"
-                                        name="lastName"
-                                        type="text"
-                                        className={classNames({ 'p-invalid': isFormFieldInvalid("lastName")})}
-                                        {...formik.getFieldProps("lastName")}
-                                    />
-                                      <label htmlFor="Last Name">Last Name</label>
-                                    </ span>
-                                    { getFormErrorMessage('lastName') }
-                                  <span className="p-float-label ">
-                                    <InputText
-                                        id="phone"
-                                        name="phone"
-                                        type="number"
-                                        className={classNames({ 'p-invalid': isFormFieldInvalid("phone")})}
-                                        {...formik.getFieldProps("phone")}
-                                    />
-                                    <label htmlFor="phone">Phone</label>
-                                  </span>
-                                  { getFormErrorMessage('phone') }
-                                  <span className="p-float-label ">
-                                      <InputText
-                                        id="image"
-                                        name="image"
-                                        type="text"
-                                        className={classNames({ 'p-invalid': isFormFieldInvalid("image")})}
-                                        {...formik.getFieldProps("image")}
-                                    />
-                                    <label htmlFor="image">Image URL</label>
-                                  </span>
-                                  { getFormErrorMessage('image') }
-                                  <span className="p-float-label ">
-                                    <InputText
-                                        id="email"
-                                        name="email"
-                                        type="text"
-                                        className={classNames({ 'p-invalid': isFormFieldInvalid("email")})}
-                                        {...formik.getFieldProps("email")}
-                                    />
-                                    <label htmlFor="email">Email</label>
-                                  </span>
-                                  { getFormErrorMessage('email') }
-                                  <span className="p-float-label ">
-                                    <InputText
-                                        id="password"
-                                        name="password"
-                                        type="text"
-                                        className={classNames({ 'p-invalid': isFormFieldInvalid("password")})}
-                                        {...formik.getFieldProps("password")}
-                                    />
-                                    <label htmlFor="password">Password</label>
-                                  </span>
-                                  { getFormErrorMessage('password') }
-                                  <Button label="Submit" type="submit" className="m-3" />
+                              <div className="">
+                                  <div className="flex flex-column justify-content-center">
+                                      <div className="field">
+                                          <label htmlFor="name" className="field">Name</label>
+                                          <InputText
+                                              id="name"
+                                              name="name"
+                                              type="text"
+                                              className="w-full"
+                                              {...formik.getFieldProps("name")}
+                                          />
+                                          { formik.touched.name && formik.errors.name ? (
+                                              <span className="p-error">{formik.errors.name}</span>
+                                          ) : null}
+                                      </div>
+                                      <div className="field">
+                                          <label htmlFor="lastName" className="p-mr-2">Last Name</label>
+                                          <InputText
+                                              id="lastName"
+                                              name="lastName"
+                                              type="text"
+                                              className="w-full"
+                                              {...formik.getFieldProps("lastName")}
+                                          />
+                                          { formik.touched.lastName && formik.errors.lastName ? (
+                                              <span className="p-error">{formik.errors.lastName}</span>
+                                          ) : null}
+                                      </div>
+                                      <div className="field">
+                                          <label htmlFor="phone">Phone</label>
+                                          <InputText
+                                              id="phone"
+                                              name="phone"
+                                              type="number"
+                                              className="w-full"
+                                              {...formik.getFieldProps("phone")}
+                                          />
+                                          { formik.touched.phone && formik.errors.phone ? (
+                                              <span className="p-error">{formik.errors.phone}</span>
+                                          ) : null}
+                                      </div>
+                                      <div className="field">
+                                          <label htmlFor="image">Image</label>
+                                          <InputText
+                                              id="image"
+                                              name="image"
+                                              type="text"
+                                              className="w-full"
+                                              {...formik.getFieldProps("image")}
+                                          />
+                                          { formik.touched.image && formik.errors.image ? (
+                                              <span className="p-error">{formik.errors.image}</span>
+                                          ) : null}
+                                      </div>
+                                      <div className="field">
+                                          <label htmlFor="email">Email</label>
+                                          <InputText
+                                              id="email"
+                                              name="email"
+                                              type="text"
+                                              className="w-full"
+                                              {...formik.getFieldProps("email")}
+                                          />
+                                          { formik.touched.email && formik.errors.email ? (
+                                              <span className="p-error">{formik.errors.email}</span>
+                                          ) : null}
+                                      </div>
+                                      <div className="field">
+                                          <label htmlFor="password">Password</label>
+                                          <InputText
+                                              id="password"
+                                              name="password"
+                                              type="text"
+                                              className="w-full"
+                                              {...formik.getFieldProps("password")}
+                                          />
+                                          { formik.touched.password && formik.errors.password ? (
+                                              <span className="p-error">{formik.errors.password}</span>
+                                          ) : null}
+                                      </div>
+                                      <Button label="Submit" type="submit" disabled={!formik.isValid}/>
+                                  </div>
                               </div>
                           </form>
                       </div>
