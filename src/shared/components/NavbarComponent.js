@@ -26,6 +26,14 @@ const NavbarComponent = () => {
             command: () => {
                 navigate("adoption")
             }
+        },
+        {
+            label: "Sign-Out",
+            icon: "pi pi-sign-out",
+            command: () => {
+                localStorage.clear();
+                navigate("/")
+            }
         }
     ]
     return (
