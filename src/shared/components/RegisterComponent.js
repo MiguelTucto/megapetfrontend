@@ -55,10 +55,15 @@ const RegisterComponent = ({setVisible}) => {
       <>
           <div className="card">
               <Toast ref={toast} />
+
               <div className="flex align-content-center justify-content-center mt-8 ">
                   <div className="surface-card  shadow-2  p-3 border-round w-10 sm:w-2">
                       <div className=" flex-column text-center  mb-3 mt-4">
-                          <Image src={megapet} width={250} />
+                          <div className="flex flex-row align-items-center ">
+                              <Button icon="pi pi-arrow-left" rounded text severity="secondary"  className="mr-3  hover:bg-black-alpha-50 hover:text-green-300" onClick={() => {setVisible(true)}}/>
+                              <Image src={megapet} width={250} />
+                          </div>
+
                           <h4>You may complete the fields with your personal information</h4>
                       </div>
                       <div className="">
