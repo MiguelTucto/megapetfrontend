@@ -10,12 +10,15 @@ import {Dialog} from "primereact/dialog";
 import SheltersApiService from "../../shelter/services/shelters-api.service";
 import UsersApiService from "../../user/services/users-api.service";
 import {useNavigate} from "react-router-dom";
+import FirstStep from "../../document/pages/FirstStep";
+import SecondStep from "../../document/pages/SecondStep";
+import DocumentComponent from "../../document/pages/DocumentComponent";
 const TablePetComponent = () => {
     const [pets, setPets] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [visibleDocument, setVisibleDocument] = useState(false);
     const [selectedPet, setSelectedPet] = useState([]);
     const [shelter, setShelter] = useState([]);
-    const [user, setUser] = useState([]);
     const navigate = useNavigate();
     const getAllPets = () => {
         PetsApiService.getAllPets()
@@ -28,12 +31,6 @@ const TablePetComponent = () => {
             .catch(e => console.log(e))
     }
 
-    const retrieveUser = (shelterId) => {
-        UsersApiService.getUserById(shelterId.userId)
-            .then(response => setUser(response.data))
-            .catch(e => console.log(e))
-    }
-
     useEffect(() => {
         getAllPets();
     }, [getAllPets])
@@ -43,6 +40,11 @@ const TablePetComponent = () => {
             setVisible(true);
             setSelectedPet(pet);
             retrieveShelter(pet);
+        }
+
+        const showDocument = () => {
+            setVisibleDocument(true);
+            setSelectedPet(pet);
         }
 
         return (
@@ -59,7 +61,7 @@ const TablePetComponent = () => {
                         <h2 className="flex flex-row align-items-center justify-content-center">{pet.likes}<i className="pi pi-heart-fill ml-2 text-red-500 text-4xl"></i></h2>
                         <div className="gap-5">
                             <Button icon="pi pi-window-maximize" rounded className="mr-5" onClick={showInformation}/>
-                            <Button icon="pi pi-shield" rounded onClick={() => { navigate("adoption")}} />
+                            <Button icon="pi pi-shield" rounded onClick={showDocument} />
                         </div>
                     </div>
                 </div>
@@ -76,6 +78,9 @@ const TablePetComponent = () => {
             <DataView value={pets} itemTemplate={itemTemplate}  />
             <Dialog onHide={() => setVisible(false)} header={selectedPet.name} visible={visible} >
                 { selectedPet && <InformationPetComponent pet={selectedPet} shelter={shelter}  />}
+            </Dialog>
+            <Dialog onHide={() => setVisibleDocument(false)} header="To be an adopter" visible={visibleDocument} >
+                { selectedPet && <DocumentComponent pet={selectedPet} />}
             </Dialog>
         </>
     );

@@ -58,10 +58,10 @@ const LoginComponent = () => {
             {
                 visible
                 ? (
-                        <div className="card">
+                        <div className="card ">
                             <Toast ref={toast} />
-                            <div className="flex align-content-center justify-content-center mt-8 ">
-                                <div className="surface-card  shadow-2 mt-8 p-3  border-round  w-10 sm:w-2">
+                            <div className=" flex align-items-center justify-content-center card-container  mt-8">
+                                <div className="surface-card  shadow-2  p-3  border-round   w-10 sm:w-2  mt-8">
                                     <div className="flex flex-column text-center mb-3 mt-4">
                                         <Image src={megapet} width={250} />
                                         <span className="text-600 font-medium line-height-3">Don't have an account?</span>

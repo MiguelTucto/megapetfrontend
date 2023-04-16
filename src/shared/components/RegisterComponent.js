@@ -1,7 +1,5 @@
 import React, {useRef} from "react";
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import {useNavigate} from "react-router-dom";
-import {classNames} from "primereact/utils";
 import UsersApiService from "../../user/services/users-api.service";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
@@ -10,17 +8,15 @@ import {Button} from "primereact/button";
 import {Image} from "primereact/image";
 import megapet from "../img/megapet.png";
 import {Toast} from "primereact/toast";
-import {Divider} from "primereact/divider";
 
 const RegisterComponent = ({setVisible}) => {
     const toast = useRef(null);
-    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
             name: "",
             lastName: "",
-            phone: null,
+            phone: undefined,
             image: "",
             email: "",
             password: ""
