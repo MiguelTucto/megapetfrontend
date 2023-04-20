@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Button } from 'primereact/button';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Rating } from 'primereact/rating';
@@ -15,6 +15,7 @@ import SecondStep from "../../document/pages/SecondStep";
 import DocumentComponent from "../../document/pages/DocumentComponent";
 const TablePetComponent = () => {
     const [pets, setPets] = useState([]);
+    const toast = useRef(null);
     const [visible, setVisible] = useState(false);
     const [visibleDocument, setVisibleDocument] = useState(false);
     const [selectedPet, setSelectedPet] = useState([]);
@@ -80,7 +81,7 @@ const TablePetComponent = () => {
                 { selectedPet && <InformationPetComponent pet={selectedPet} shelter={shelter}  />}
             </Dialog>
             <Dialog onHide={() => setVisibleDocument(false)} header="To be an adopter" visible={visibleDocument} >
-                { selectedPet && <DocumentComponent pet={selectedPet} />}
+                { selectedPet && <DocumentComponent pet={selectedPet} setVisibleDocument={setVisibleDocument}/>}
             </Dialog>
         </>
     );

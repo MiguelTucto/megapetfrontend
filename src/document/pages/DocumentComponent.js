@@ -3,9 +3,8 @@ import { Steps } from 'primereact/steps';
 import { Toast } from 'primereact/toast';
 import FirstStep from "./FirstStep";
 import SecondStep from "./SecondStep";
-import ThirdStep from "./ThirdStep";
 
-const DocumentComponent = ({pet}) => {
+const DocumentComponent = ({pet, setVisibleDocument}) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const toast = useRef(null);
     const items = [
@@ -20,18 +19,6 @@ const DocumentComponent = ({pet}) => {
             command: (event) => {
                 toast.current.show({severity: 'info', summary: 'Second Step', detail: event.item.label});
             }
-        },
-        {
-            label: 'Payment',
-            command: (event) => {
-                toast.current.show({severity: 'info', summary: 'Third Step', detail: event.item.label});
-            }
-        },
-        {
-            label: 'Confirmation',
-            command: (event) => {
-                toast.current.show({severity: 'info', summary: 'Last Step', detail: event.item.label});
-            }
         }
     ];
 
@@ -43,11 +30,7 @@ const DocumentComponent = ({pet}) => {
                 );
             case 1:
                 return(
-                    <SecondStep pet={pet} />
-                );
-            case 2:
-                return (
-                    <ThirdStep />
+                    <SecondStep pet={pet} setVisibleDocument={setVisibleDocument}/>
                 );
             default:
                 return null;
@@ -57,7 +40,7 @@ const DocumentComponent = ({pet}) => {
     return (
         <div className="card mt-6">
             <Toast ref={toast}></Toast>
-            <Steps model={items} activeIndex={activeIndex} onSelect={(e) => setActiveIndex(e.index)} readOnly={false}/>
+            <Steps model={items} activeIndex={activeIndex} onSelect={(e) => setActiveIndex(e.index)} />
             {renderContent()}
         </div>
     )

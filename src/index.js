@@ -21,6 +21,8 @@ import './index.css';
 import UsersList from "./user/pages/UsersList";
 import TablePetComponent from "./pet/pages/TablePetComponent";
 import DocumentComponent from "./document/pages/DocumentComponent";
+import ToolbarComponent from "./shared/components/ToolbarComponent";
+import AdoptionListComponent from "./document/pages/AdoptionListComponent";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,10 +30,10 @@ root.render(
       <BrowserRouter>
           <Routes>
               <Route path="/*" element={<LoginComponent />}  />
-              <Route path="home/*" element={<NavbarComponent />}>
+              <Route path="home/*" element={<ToolbarComponent />}>
                   <Route index element={<TablePetComponent />} />
                   <Route path="profile" element={<ProfileComponent />} />
-                  <Route path="adoption" element={<DocumentComponent />} />
+                  <Route path="adoption" element={<AdoptionListComponent />} />
               </Route>
           </Routes>
       </BrowserRouter>
