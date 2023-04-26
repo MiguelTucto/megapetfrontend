@@ -15,7 +15,7 @@ const DocumentComponent = ({pet, setVisibleDocument}) => {
             }
         },
         {
-            label: 'Seat',
+            label: 'Additional',
             command: (event) => {
                 toast.current.show({severity: 'info', summary: 'Second Step', detail: event.item.label});
             }
